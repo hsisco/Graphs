@@ -1,3 +1,13 @@
+"""
+Return their earliest known ancestor...the one with the lowest numeric ID. 
+If the input individual has no parents, the function should return -1
+* The input will not be empty.
+* There are no cycles in the input.
+* There are no "repeated" ancestors – if two individuals are connected, it is by exactly one path.
+* IDs will always be positive integers.
+* A parent may have any number of children.
+"""
+
 def earliest_ancestor(ancestors, starting_node):
     graph = {}                  # Store parents and children in graph where, key=child and value=parent
 
