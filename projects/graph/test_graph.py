@@ -24,13 +24,13 @@ class Test(unittest.TestCase):
         self.graph.add_edge(4, 6)
     def test_vertices(self):
         vertices = {
-          1: {2},
-          2: {3, 4},
-          3: {5},
-          4: {6, 7}, 
-          5: {3},
-          6: {3},
-          7: {1, 6}
+            1: {2},
+            2: {3, 4},
+            3: {5},
+            4: {6, 7}, 
+            5: {3},
+            6: {3},
+            7: {1, 6}
         }
         self.assertDictEqual(self.graph.vertices, vertices)
     def test_bft(self):
