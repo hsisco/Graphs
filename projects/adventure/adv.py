@@ -8,7 +8,6 @@ from ast import literal_eval
 # Load world
 world = World()
 
-
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
@@ -28,6 +27,44 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
+
+
+
+def walk_directions(current_room): 
+    visited=set()
+    path=list()
+
+    def walk_recur(current_room, opposite_direction=None): 
+        # Check if we have been visited and if so add it to visited
+        if current_room not in visited:
+            visited.add(current_room)
+
+        # Base case: if no neighbors
+        neighbors = current_room.get_exits()
+        if len(neighbors) == 0:
+            return visited
+
+        # If we do have neighbors, iterate over them and get each direction
+        for neighbor in neighbors:
+            next_room=current_room.get_room_in_direction(neighbor)
+            if next_room in visited: 
+                continue 
+            else: 
+                # If we haven't been to the room, add the room to visited and append neighbor to path
+                visited.add(next_room)
+                path.append(neighbor) 
+            # Recurse for each room until rooms are all visited and neighbors appended
+            walk_recur(next_room, opposite_direction=neighbor)
+
+        # If we've been though an exit, find the opposite direction and append it to walk through
+        if opposite_direction is not None: 
+            back={"n": "s", "e": "w", "s": "n", "w": "e"}
+            previous=back[opposite_direction]
+            path.append(previous)
+    walk_recur(current_room)
+    return path
+
+traversal_path=walk_directions(player.current_room)
 
 
 
